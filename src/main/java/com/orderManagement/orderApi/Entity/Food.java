@@ -1,9 +1,8 @@
-package com.orderManagement.orderApi.Food;
+package com.orderManagement.orderApi.Entity;
 
 
-import com.orderManagement.orderApi.OrderApp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,25 @@ public class Food {
     private int id;
     private String name;
     private double price;
+    @JsonIgnore
     @ManyToMany(mappedBy = "foodList")
-    private List<OrderApp> orderApps = new ArrayList<>();
+    private List<orderapp> orderApps = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<orderapp> getOrderApps() {
+        return orderApps;
+    }
+
+    public void setOrderApps(List<orderapp> orderApps) {
+        this.orderApps = orderApps;
+    }
 
     public Food(String name, double price) {
         this.name = name;

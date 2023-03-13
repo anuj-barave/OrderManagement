@@ -1,13 +1,12 @@
-package com.orderManagement.orderApi.CustomerApi;
+package com.orderManagement.orderApi.Entity;
 
-
-import com.orderManagement.orderApi.OrderApp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Entity
 public class Customer {
@@ -20,25 +19,39 @@ public class Customer {
     @NotNull
     private String address;
     @NotNull
-    private String phoneNo;
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
-    private List<OrderApp> orders = new ArrayList<>();
+    private String phone;
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer",fetch=FetchType.LAZY)
+    private List<orderapp> orders = new ArrayList<>();
 
     public Customer(String name, String address, String phoneNo) {
         this.name = name;
         this.address = address;
-        this.phoneNo = phoneNo;
+        this.phone = phoneNo;
+    }
+
+    public Customer() {
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void Customer(){
 
     };
 
-    public List<OrderApp> getOrders() {
+    @JsonIgnore
+    public List<orderapp> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderApp> orders) {
+    public void setOrders(List<orderapp> orders) {
         this.orders = orders;
     }
 
@@ -59,11 +72,11 @@ public class Customer {
     }
 
     public String getPhoneNo() {
-        return phoneNo;
+        return phone;
     }
 
     public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
+        this.phone = phoneNo;
     }
 
     @Override
@@ -71,7 +84,7 @@ public class Customer {
         return "Customer{" +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", phoneNo='" + phoneNo + '\'' +
+                ", phoneNo='" + phone + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,8 @@
-package com.orderManagement.orderApi;
+package com.orderManagement.orderApi.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.orderManagement.orderApi.Entity.orderapp;
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.Date;
 
@@ -14,13 +15,30 @@ public class Payment {
     private String method;
     private String status;
     private Date date;
+    @JsonIgnore
     @OneToOne(mappedBy = "payment")
-    private OrderApp  orderApp;
+    private orderapp orderApp;
 
-    public Payment()
-    {
+    public Payment() {
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public orderapp getOrderApp() {
+        return orderApp;
+    }
+
+    public void setOrderApp(orderapp orderApp) {
+        this.orderApp = orderApp;
+    }
+
     public Payment(String method, String status, Date date) {
         this.method = method;
         this.status = status;
@@ -50,4 +68,5 @@ public class Payment {
     public void setDate(Date date) {
         this.date = date;
     }
+
 }
